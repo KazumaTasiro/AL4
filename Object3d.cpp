@@ -402,12 +402,12 @@ void Object3d::CreateModel()
 	//ファイルストリーム
 	std::ifstream file;
 	//.objファイルを開く
-	file.open("Resources/triangle/triangle.obj");
+	file.open("Resources/triangle_tex/triangle_tex.obj");
 	//ファイルオープン失敗をチェック
 	assert(!file.fail());
 	vector<XMFLOAT3>positions;	//頂点座標
 	vector<XMFLOAT3>normals;	//法線ベクトル
-	vector<XMFLOAT3>texcoords;	//テクスチャ
+	vector<XMFLOAT2>texcodes;	//テクスチャ
 	//1行ずつ読み込む
 	string line;
 	while (getline(file,line)){
@@ -429,10 +429,32 @@ void Object3d::CreateModel()
 			//座標データに入力
 			positions.emplace_back(position);
 			//頂点データに追加
-			VertexPosNormalUv vertex{};
+			/*VertexPosNormalUv vertex{};
 			vertex.pos = position;
-			vertices.emplace_back(vertex);
+			vertices.emplace_back(vertex);*/
 		}
+		//先頭文字列がvtならテクスチャ
+		if (key == "vt") {
+			//U.V成分読み込み
+			XMFLOAT2 texcord{};
+			line_stream >> texcord.x;
+			line_stream >> texcord.y;
+			//V方向反転
+			texcord.y = 1.0f - texcord.y;
+			//テクスチャ座標データに追加
+			texcodes.emplace_back(texcord);
+		}
+		//先頭文字列がvnなら法線ベクトル
+		if (key == "vn") {
+			//X,Y,Z成分読み込み
+			XMFLOAT3 normal{};
+			line_stream >> normal.x;
+			line_stream >> normal.y;
+			line_stream >> normal.z;
+			//法線ベクトルデータに追加
+			normals.emplace_back(normal);
+		}
+
 		//先頭文字列がfならポリゴン（三角形）
 		if (key == "f") {
 			//半角スペース区切りで行の続きを読み込む
@@ -440,10 +462,24 @@ void Object3d::CreateModel()
 			while (getline(line_stream, index_string, ' ')) {
 				//頂点インデックス１個分の文字列をストリームン変換して解析しやすくする
 				std::istringstream index_stream(index_string);
-				unsigned short indexPosition;
+				unsigned short indexPosition,indexNormal,indexTexcord;
 				index_stream >> indexPosition;
-				//頂点インデックスに追加
-				indices.emplace_back(indexPosition - 1);
+				//追加
+				index_stream.seekg(1, ios_base::cur);
+				index_stream >> indexTexcord;
+				index_stream.seekg(1, ios_base::cur);
+				index_stream >> indexNormal;
+				//頂点データの追加
+				VertexPosNormalUv vertex{};
+				vertex.pos = positions[indexPosition - 1];
+				vertex.normal = normals[indexNormal - 1];
+				vertex.uv = texcodes[indexTexcord - 1];
+				vertices.emplace_back(vertex);
+				//インデックスデータの追加
+				indices.emplace_back((unsigned short)indices.size());
+
+				////頂点インデックスに追加
+				//indices.emplace_back(indexPosition - 1);
 
 			}
 		}

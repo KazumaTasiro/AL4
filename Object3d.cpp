@@ -399,6 +399,7 @@ void Object3d::LoadTexture()
 
 void Object3d::CreateModel()
 {
+
 	//ファイルストリーム
 	std::ifstream file;
 	//.objファイルを開く

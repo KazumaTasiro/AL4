@@ -10,6 +10,7 @@ GameScene::GameScene()
 GameScene::~GameScene()
 {
 	delete spriteBG;
+	delete model_;
 	delete object3d;
 }
 
@@ -33,6 +34,9 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 	// 背景スプライト生成
 	spriteBG = Sprite::Create(1, { 0.0f,0.0f });
 	// 3Dオブジェクト生成
+	model_ = Model::Create();
+	model_->Update();
+
 	object3d = Object3d::Create();
 	object3d->Update();
 }
@@ -65,6 +69,8 @@ void GameScene::Update()
 	}
 
 	object3d->Update();
+
+	model_->Update();
 }
 
 void GameScene::Draw()
@@ -90,17 +96,17 @@ void GameScene::Draw()
 
 #pragma region 3Dオブジェクト描画
 	// 3Dオブジェクト描画前処理
-	Object3d::PreDraw(cmdList);
+	Model::PreDraw(cmdList);
 
 	// 3Dオブクジェクトの描画
-	object3d->Draw();
+	model_->Draw();
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
 	// 3Dオブジェクト描画後処理
-	Object3d::PostDraw();
+	Model::PostDraw();
 #pragma endregion
 
 #pragma region 前景スプライト描画

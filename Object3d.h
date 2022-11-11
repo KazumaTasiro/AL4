@@ -7,6 +7,8 @@
 #include <d3dx12.h>
 
 
+
+
 /// <summary>
 /// 3Dオブジェクト
 /// </summary>
@@ -22,13 +24,13 @@ private: // エイリアス
 	using XMMATRIX = DirectX::XMMATRIX;
 
 public: // サブクラス
-	// 頂点データ構造体
-	struct VertexPosNormalUv
-	{
-		XMFLOAT3 pos; // xyz座標
-		XMFLOAT3 normal; // 法線ベクトル
-		XMFLOAT2 uv;  // uv座標
-	};
+	//// 頂点データ構造体
+	//struct VertexPosNormalUv
+	//{
+	//	XMFLOAT3 pos; // xyz座標
+	//	XMFLOAT3 normal; // 法線ベクトル
+	//	XMFLOAT2 uv;  // uv座標
+	//};
 
 	// 定数バッファ用データ構造体B0
 	struct ConstBufferDataB0
@@ -85,12 +87,12 @@ public: // 静的メンバ関数
 	/// 描画前処理
 	/// </summary>
 	/// <param name="cmdList">描画コマンドリスト</param>
-	static void PreDraw(ID3D12GraphicsCommandList* cmdList);
+	/*static void PreDraw(ID3D12GraphicsCommandList* cmdList);*/
 
 	/// <summary>
 	/// 描画後処理
 	/// </summary>
-	static void PostDraw();
+	/*static void PostDraw();*/
 
 	/// <summary>
 	/// 3Dオブジェクト生成
@@ -131,26 +133,26 @@ public: // 静的メンバ関数
 private: // 静的メンバ変数
 	// デバイス
 	static ID3D12Device* device;
-	// デスクリプタサイズ
-	static UINT descriptorHandleIncrementSize;
-	// コマンドリスト
-	static ID3D12GraphicsCommandList* cmdList;
-	// ルートシグネチャ
-	static ComPtr<ID3D12RootSignature> rootsignature;
-	// パイプラインステートオブジェクト
-	static ComPtr<ID3D12PipelineState> pipelinestate;
-	// デスクリプタヒープ
-	static ComPtr<ID3D12DescriptorHeap> descHeap;
-	// 頂点バッファ
-	static ComPtr<ID3D12Resource> vertBuff;
-	// インデックスバッファ
-	static ComPtr<ID3D12Resource> indexBuff;
+	//// デスクリプタサイズ
+	//static UINT descriptorHandleIncrementSize;
+	//// コマンドリスト
+	//static ID3D12GraphicsCommandList* cmdList;
+	//// ルートシグネチャ
+	//static ComPtr<ID3D12RootSignature> rootsignature;
+	//// パイプラインステートオブジェクト
+	//static ComPtr<ID3D12PipelineState> pipelinestate;
+	//// デスクリプタヒープ
+	//static ComPtr<ID3D12DescriptorHeap> descHeap;
+	//// 頂点バッファ
+	//static ComPtr<ID3D12Resource> vertBuff;
+	//// インデックスバッファ
+	//static ComPtr<ID3D12Resource> indexBuff;
 	// テクスチャバッファ
 	static ComPtr<ID3D12Resource> texbuff;
-	// シェーダリソースビューのハンドル(CPU)
-	static CD3DX12_CPU_DESCRIPTOR_HANDLE cpuDescHandleSRV;
-	// シェーダリソースビューのハンドル(CPU)
-	static CD3DX12_GPU_DESCRIPTOR_HANDLE gpuDescHandleSRV;
+	//// シェーダリソースビューのハンドル(CPU)
+	//static CD3DX12_CPU_DESCRIPTOR_HANDLE cpuDescHandleSRV;
+	//// シェーダリソースビューのハンドル(CPU)
+	//static CD3DX12_GPU_DESCRIPTOR_HANDLE gpuDescHandleSRV;
 	// ビュー行列
 	static XMMATRIX matView;
 	// 射影行列
@@ -161,22 +163,22 @@ private: // 静的メンバ変数
 	static XMFLOAT3 target;
 	// 上方向ベクトル
 	static XMFLOAT3 up;
-	// 頂点バッファビュー
-	static D3D12_VERTEX_BUFFER_VIEW vbView;
-	// インデックスバッファビュー
-	static D3D12_INDEX_BUFFER_VIEW ibView;
-	// 頂点データ配列
-	/*static VertexPosNormalUv vertices[vertexCount];*/
-	static std::vector<VertexPosNormalUv> vertices;
-	// 頂点インデックス配列
-	/*static unsigned short indices[planeCount * 3];*/
-	static std::vector<unsigned short>indices;
+	//// 頂点バッファビュー
+	//static D3D12_VERTEX_BUFFER_VIEW vbView;
+	//// インデックスバッファビュー
+	//static D3D12_INDEX_BUFFER_VIEW ibView;
+	//// 頂点データ配列
+	///*static VertexPosNormalUv vertices[vertexCount];*/
+	//static std::vector<VertexPosNormalUv> vertices;
+	//// 頂点インデックス配列
+	///*static unsigned short indices[planeCount * 3];*/
+	//static std::vector<unsigned short>indices;
 
 private:// 静的メンバ関数
 	/// <summary>
 	/// デスクリプタヒープの初期化
 	/// </summary>
-	static void InitializeDescriptorHeap();
+	/*static void InitializeDescriptorHeap();*/
 
 	/// <summary>
 	/// カメラ初期化
@@ -189,18 +191,18 @@ private:// 静的メンバ関数
 	/// グラフィックパイプライン生成
 	/// </summary>
 	/// <returns>成否</returns>
-	static void InitializeGraphicsPipeline();
+	/*static void InitializeGraphicsPipeline();*/
 
 	/// <summary>
 	/// テクスチャ読み込み
 	/// </summary>
 	/// <returns>成否</returns>
-	static bool LoadTexture(const std::string& directoryPath, const std::string& filename);
+	/*static bool LoadTexture(const std::string& directoryPath, const std::string& filename);*/
 
 	/// <summary>
 	/// モデル作成
 	/// </summary>
-	static void CreateModel();
+	/*static void CreateModel();*/
 
 	/// <summary>
 	/// ビュー行列を更新
@@ -217,7 +219,7 @@ public: // メンバ関数
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw();
+	/*void Draw();*/
 
 	/// <summary>
 	/// 座標の取得
@@ -234,13 +236,13 @@ public: // メンバ関数
 	/// <summary>
 	/// マテリアルの読み込み
 	/// </summary>
-	static void LoadMaterial(const std::string& directoryPath, const std::string& filename);
+	/*static void LoadMaterial(const std::string& directoryPath, const std::string& filename);*/
 
-
-private: // メンバ変数
-	//ComPtr<ID3D12Resource> constBuff; // 定数バッファ
 	ComPtr<ID3D12Resource> constBuffB0; // 定数バッファ
 	ComPtr<ID3D12Resource> constBuffB1; // 定数バッファ
+private: // メンバ変数
+	//ComPtr<ID3D12Resource> constBuff; // 定数バッファ
+
 	// 色
 	XMFLOAT4 color = { 1,1,1,1 };
 	// ローカルスケール
@@ -254,7 +256,10 @@ private: // メンバ変数
 	// 親オブジェクト
 	Object3d* parent = nullptr;
 
+	//モデル
+	/*Model* model_;*/
+
 	//マテリアル
-	static Material material;
+	static Material material2;
 };
 
